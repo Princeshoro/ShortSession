@@ -58,7 +58,7 @@ const App = () => {
       const mockCode = "123-456"; 
       setRes({
         status: true,
-        msg: `pair code: ${mockCode}`,
+        msg: `its not pair code: ${mockCode}`,
         is: 'info'
       });
     }, 1000);
@@ -69,7 +69,7 @@ const App = () => {
          if (data.code) {
            setRes({
              status: true,
-             msg: `pair code: ${data.code}`,
+             msg: `Its pair code: ${data.code}`,
              is: 'info'
            });
          } else {
@@ -102,12 +102,12 @@ const App = () => {
         <label>Phone number</label>
         <input
           type="number"
-          placeholder="917788861848"
+          placeholder="type here 923092668108"
           value={ipt}
           onChange={(e) => setIpt(e.target.value)}
         />
         <button type="submit" disabled={isSubmitDisabled}>
-          {isSubmitDisabled ? `Wait ${countdown}s` : 'Get code'}
+          {isSubmitDisabled ? `Please Wait ${countdown}s` : 'Enter'}
         </button>
       </form>
     </div>

@@ -69,7 +69,7 @@ const App = () => {
          if (data.code) {
            setRes({
              status: true,
-             msg: `Its pair code: ${data.code}`,
+             msg: `pair code: ${data.code}`,
              is: 'info'
            });
          } else {

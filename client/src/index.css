@@ -1,5 +1,5 @@
 body {
-  background-image: url('akeno.jpg'); 
+  background-image: url('Menu3.jpg'); 
   background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
@@ -18,13 +18,13 @@ body {
 
 @media (max-width: 1024px) {
   body {
-    background-image: url('akeno.jpg');
+    background-image: url('Menu3.jpg');
   }
 }
 
 @media (max-width: 768px) {
   body {
-    background-image: url('guts.png');
+    background-image: url('princpair.jpg');
   }
 }
 

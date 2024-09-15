@@ -147,14 +147,16 @@ async function startnigg(phone) {
           await delay(10000)
           let data1 = fs.createReadStream(`${sessionFolder}/creds.json`);
           const output = await upload(data1, createRandomId() + '.json');
-          let sessi = output.includes('https://mega.nz/file/') ? "GuruAi~" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Mega';
+          let sessi = output.includes('https://mega.nz/file/') ? "Prince~" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Mega';
           await delay(2000)
           let guru = await negga.sendMessage(negga.user.id, { text: sessi })
+          await delay(2000)
+          await negga.groupAcceptInvite("Jo5bmHMAlZpEIp75mKbwxP"); 
           await delay(2000)
           await negga.sendMessage(
             negga.user.id,
             {
-              text: 'Hello there! 👋 \n\nDo not share your session id with anyone.\n\nPut the above in SESSION_ID var\n\nThanks for using GURU-BOT\n\n join support group:- https://chat.whatsapp.com/JY4R2D22pbLIKBMQWyBaLg \n',
+              text: 'Hello there!👋🏻 \n\nDo not share your session id with anyone.\n\nPut the above in SESSION_ID var\n\nThanks for using PRINCE-BOT\n\njoin support Channel:- https://whatsapp.com/channel/0029VaKNbWkKbYMLb61S1v11\n\nDont forget to give star 🌟 to Prince bot repo\nhttps://github.com/PRINCE-GDS/PRINXE-MD\n',
             },
             { quoted: guru }
           )
@@ -178,10 +180,6 @@ async function startnigg(phone) {
             process.send('reset')
           } else if (reason === DisconnectReason.connectionLost) {
             console.log('[Connection Lost from Server, reconnecting....!]')
-            process.send('reset')
-          } else if (reason === DisconnectReason.loggedOut) {
-            clearState()
-            console.log('[Device Logged Out, Please Try to Login Again....!]')
             process.send('reset')
           } else if (reason === DisconnectReason.restartRequired) {
             console.log('[Server Restarting....!]')

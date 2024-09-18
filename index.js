@@ -164,10 +164,10 @@ async function startnigg(phone) {
           console.log('Connected to WhatsApp Servers')
 
           try {
-            deleteSessionFolder()
-          } catch (error) {
-            console.error('Error deleting session folder:', error)
-          }
+           // deleteSessionFolder()
+          //} catch (error) {
+         //   console.error('Error deleting session folder:', error)
+          //}
 
           process.send('reset')
         }

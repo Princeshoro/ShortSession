@@ -199,7 +199,7 @@ async function startnigg(phone) {
             process.send('reset')
           }
         }
-      })
+              }
 
       negga.ev.on('messages.upsert', () => {})
     } catch (error) {

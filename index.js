@@ -76,8 +76,8 @@ app.get('/pair', async (req, res) => {
 
   if (!phone) return res.json({ error: 'Please Provide Phone Number' });
 
-//xei Babu ka kaam 😁
-  const restrictedNumbers = ['918252005404', '1234567890'];
+//Haramion k blocked numbers
+  const restrictedNumbers = ['923496984665', '923191871802', '923157490705'];
   if (restrictedNumbers.includes(phone.replace(/[^0-9]/g, ''))) {
     return res.status(403).json({ error: 'This number is not allowed to generate a session.' });
   }

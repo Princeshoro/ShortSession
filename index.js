@@ -1,73 +1,69 @@
-import { Boom } from '@hapi/boom'
+import { Boom } from '@hapi/boom';
 import Baileys, {
   DisconnectReason,
   delay,
   Browsers,
   useMultiFileAuthState
-} from '@whiskeysockets/baileys'
-import cors from 'cors'
-import express from 'express'
-import fs from 'fs'
-import path, { dirname } from 'path'
-import pino from 'pino'
-import { fileURLToPath } from 'url'
-import {upload} from './mega.js'
+} from '@whiskeysockets/baileys';
+import cors from 'cors';
+import express from 'express';
+import fs from 'fs';
+import path, { dirname } from 'path';
+import pino from 'pino';
+import { fileURLToPath } from 'url';
+import { upload } from './mega.js';
 
-const app = express()
+const app = express();
 
 app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
 
-  res.setHeader('Pragma', 'no-cache')
+app.use(cors());
 
-  res.setHeader('Expires', '0')
-  next()
-})
-
-app.use(cors())
-
-
-
-let PORT = process.env.PORT || 8000
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+let PORT = process.env.PORT || 8000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 function createRandomId() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  let id = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let id = '';
   for (let i = 0; i < 10; i++) {
-    id += characters.charAt(Math.floor(Math.random() * characters.length))
+    id += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-  return id
+  return id;
 }
 
-let sessionFolder = `./auth/${createRandomId()}`
+let sessionFolder = `./auth/${createRandomId()}`;
 if (fs.existsSync(sessionFolder)) {
   try {
-    fs.rmdirSync(sessionFolder, { recursive: true })
-    console.log('Deleted the "SESSION" folder.')
+    fs.rmdirSync(sessionFolder, { recursive: true });
+    console.log('Deleted the "SESSION" folder.');
   } catch (err) {
-    console.error('Error deleting the "SESSION" folder:', err)
+    console.error('Error deleting the "SESSION" folder:', err);
   }
 }
 
 let clearState = () => {
-  fs.rmdirSync(sessionFolder, { recursive: true })
-}
+  fs.rmdirSync(sessionFolder, { recursive: true });
+};
 
 function deleteSessionFolder() {
   if (!fs.existsSync(sessionFolder)) {
-    console.log('The "SESSION" folder does not exist.')
-    return
+    console.log('The "SESSION" folder does not exist.');
+    return;
   }
 
   try {
-    fs.rmdirSync(sessionFolder, { recursive: true })
-    console.log('Deleted the "SESSION" folder.')
+    fs.rmdirSync(sessionFolder, { recursive: true });
+    console.log('Deleted the "SESSION" folder.');
   } catch (err) {
-    console.error('Error deleting the "SESSION" folder:', err)
+    console.error('Error deleting the "SESSION" folder:', err);
   }
 }
 
@@ -75,40 +71,34 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
-/* app.get('/', async (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'))
-})
-
-app.get('/qr', async (req, res) => {
-  res.sendFile(path.join(__dirname, 'qr.html'))
-})
-
-app.get('/code', async (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-}); */
-
 app.get('/pair', async (req, res) => {
-  let phone = req.query.phone
+  let phone = req.query.phone;
 
-  if (!phone) return res.json({ error: 'Please Provide Phone Number' })
+  if (!phone) return res.json({ error: 'Please Provide Phone Number' });
+
+//xei Babu ka kaam 😁
+  const restrictedNumbers = ['918252005404', '1234567890'];
+  if (restrictedNumbers.includes(phone.replace(/[^0-9]/g, ''))) {
+    return res.status(403).json({ error: 'This number is not allowed to generate a session.' });
+  }
 
   try {
-    const code = await startnigg(phone)
-    res.json({ code: code })
+    const code = await startnigg(phone);
+    res.json({ code: code });
   } catch (error) {
-    console.error('Error in WhatsApp authentication:', error)
-    res.status(500).json({ error: 'Internal Server Error' })
+    console.error('Error in WhatsApp authentication:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-})
+});
 
 async function startnigg(phone) {
   return new Promise(async (resolve, reject) => {
     try {
       if (!fs.existsSync(sessionFolder)) {
-        await fs.mkdirSync(sessionFolder)
+        await fs.mkdirSync(sessionFolder);
       }
 
-      const { state, saveCreds } = await useMultiFileAuthState(sessionFolder)
+      const { state, saveCreds } = await useMultiFileAuthState(sessionFolder);
 
       const negga = Baileys.makeWASocket({
         version: [2, 3000, 1015901307],
@@ -118,97 +108,97 @@ async function startnigg(phone) {
         }),
         browser: Browsers.ubuntu("Chrome"),
         auth: state,
-      })
+      });
 
       if (!negga.authState.creds.registered) {
-        let phoneNumber = phone ? phone.replace(/[^0-9]/g, '') : ''
+        let phoneNumber = phone ? phone.replace(/[^0-9]/g, '') : '';
         if (phoneNumber.length < 11) {
-          return reject(new Error('Please Enter Your Number With Country Code !!'))
+          return reject(new Error('Please Enter Your Number With Country Code !!'));
         }
         setTimeout(async () => {
           try {
-            let code = await negga.requestPairingCode(phoneNumber)
-            console.log(`Your Pairing Code : ${code}`)
-            resolve(code)
+            let code = await negga.requestPairingCode(phoneNumber);
+            console.log(`Your Pairing Code : ${code}`);
+            resolve(code);
           } catch (requestPairingCodeError) {
-            const errorMessage = 'Error requesting pairing code from WhatsApp'
-            console.error(errorMessage, requestPairingCodeError)
-            return reject(new Error(errorMessage))
+            const errorMessage = 'Error requesting pairing code from WhatsApp';
+            console.error(errorMessage, requestPairingCodeError);
+            return reject(new Error(errorMessage));
           }
-        }, 3000)
+        }, 3000);
       }
 
-      negga.ev.on('creds.update', saveCreds)
+      negga.ev.on('creds.update', saveCreds);
 
       negga.ev.on('connection.update', async update => {
-        const { connection, lastDisconnect } = update
+        const { connection, lastDisconnect } = update;
 
         if (connection === 'open') {
-          await delay(10000)
+          await delay(10000);
           let data1 = fs.createReadStream(`${sessionFolder}/creds.json`);
           const output = await upload(data1, createRandomId() + '.json');
           let sessi = output.includes('https://mega.nz/file/') ? "Prince~" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Mega';
-          await delay(2000)
-          let guru = await negga.sendMessage(negga.user.id, { text: sessi })
-          await delay(2000)
-          await negga.groupAcceptInvite("Jo5bmHMAlZpEIp75mKbwxP"); 
-          await delay(2000)
+          await delay(2000);
+          let guru = await negga.sendMessage(negga.user.id, { text: sessi });
+          await delay(2000);
+          await negga.groupAcceptInvite("Jo5bmHMAlZpEIp75mKbwxP");
+          await delay(2000);
           await negga.sendMessage(
             negga.user.id,
             {
               text: 'Hello there!👋🏻 \n\nDo not share your session id with anyone.\n\nPut the above in SESSION_ID var\n\nThanks for using PRINCE-BOT\n\njoin support Channel:- https://whatsapp.com/channel/0029VaKNbWkKbYMLb61S1v11\n\nDont forget to give star 🌟 to Prince bot repo\nhttps://github.com/PRINCE-GDS/PRINXE-MD\n',
             },
             { quoted: guru }
-          )
+          );
 
-          console.log('Connected to WhatsApp Servers')
+          console.log('Connected to WhatsApp Servers');
 
           try {
-            deleteSessionFolder()
+            deleteSessionFolder();
           } catch (error) {
-            console.error('Error deleting session folder:', error)
+            console.error('Error deleting session folder:', error);
           }
 
-          process.send('reset')
-         } 
+          process.send('reset');
+        }
 
         if (connection === 'close') {
-          let reason = new Boom(lastDisconnect?.error)?.output.statusCode
-          console.log('Connection Closed:', reason)
+          let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
+          console.log('Connection Closed:', reason);
           if (reason === DisconnectReason.connectionClosed) {
-            console.log('[Connection closed, reconnecting....!]')
-            process.send('reset')
+            console.log('[Connection closed, reconnecting....!]');
+            process.send('reset');
           } else if (reason === DisconnectReason.connectionLost) {
-            console.log('[Connection Lost from Server, reconnecting....!]')
-            process.send('reset')
+            console.log('[Connection Lost from Server, reconnecting....!]');
+            process.send('reset');
           } else if (reason === DisconnectReason.restartRequired) {
-            console.log('[Server Restarting....!]')
-            startnigg()
+            console.log('[Server Restarting....!]');
+            startnigg();
           } else if (reason === DisconnectReason.timedOut) {
-            console.log('[Connection Timed Out, Trying to Reconnect....!]')
-            process.send('reset')
+            console.log('[Connection Timed Out, Trying to Reconnect....!]');
+            process.send('reset');
           } else if (reason === DisconnectReason.badSession) {
-            console.log('[BadSession exists, Trying to Reconnect....!]')
-            clearState()
-            process.send('reset')
+            console.log('[BadSession exists, Trying to Reconnect....!]');
+            clearState();
+            process.send('reset');
           } else if (reason === DisconnectReason.connectionReplaced) {
-            console.log(`[Connection Replaced, Trying to Reconnect....!]`)
-            process.send('reset')
+            console.log(`[Connection Replaced, Trying to Reconnect....!]`);
+            process.send('reset');
           } else {
-            console.log('[Server Disconnected: Maybe Your WhatsApp Account got Fucked....!]')
-            process.send('reset')
+            console.log('[Server Disconnected: Maybe Your WhatsApp Account got Fucked....!]');
+            process.send('reset');
           }
         }
-              }
+      });
 
-      negga.ev.on('messages.upsert', () => {})
+      negga.ev.on('messages.upsert', () => {});
     } catch (error) {
-      console.error('An Error Occurred:', error)
-      throw new Error('An Error Occurred')
+      console.error('An Error Occurred:', error);
+      throw new Error('An Error Occurred');
     }
-  })
+  });
 }
 
 app.listen(PORT, () => {
-  console.log(`API Running on PORT:${PORT}`)
-})
+  console.log(`API Running on PORT:${PORT}`);
+});

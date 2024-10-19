@@ -3,6 +3,7 @@ import Baileys, {
   DisconnectReason,
   delay,
   Browsers,
+  makeCacheableSignalKeyStore,
   useMultiFileAuthState
 } from '@whiskeysockets/baileys';
 import cors from 'cors';
@@ -106,9 +107,19 @@ async function startnigg(phone) {
         logger: pino({
           level: 'silent',
         }),
+        
         browser: Browsers.ubuntu("Chrome"),
-        auth: state,
-      });
+        auth: {
+          creds: state.creds,
+          keys: makeCacheableSignalKeyStore(
+            state.keys,
+            pino().child({
+              level: 'fatal',
+              stream: 'store',
+            })
+          ),
+        },
+      })
 
       if (!negga.authState.creds.registered) {
         let phoneNumber = phone ? phone.replace(/[^0-9]/g, '') : '';
@@ -146,7 +157,7 @@ async function startnigg(phone) {
           await negga.sendMessage(
             negga.user.id,
             {
-              text: 'Hello there!👋🏻 \n\nDo not share your session id with anyone.\n\nPut the above in SESSION_ID var\n\nThanks for using PRINCE-BOT\n\njoin support Channel:- https://whatsapp.com/channel/0029VaKNbWkKbYMLb61S1v11\n\nDont forget to give star 🌟 to Prince bot repo\nhttps://github.com/PRINCE-GDS/PRINXE-MD\n',
+              text: 'Hello there!👋🏻 \n\nDo not share your session id with anyone.\n\nPut the above in SESSION_ID var\n\nThanks for using PRINCE-BOT\n\njoin support Channel:- https://whatsapp.com/channel/0029VaKNbWkKbYMLb61S1v11\n\nDont forget to give star 🌟 to Prince bot repo\nhttps://github.com/PRINCE-GDS/PRINXCE-MD-WB\n',
             },
             { quoted: guru }
           );

@@ -1,228 +1,250 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <title>GURU</title>
- <link rel="stylesheet" type="text/css" href="fontawesome/css/all.min.css">
- <style>
-body {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url('https://image.lexica.art/full_webp/109e7582-4bce-466e-9a97-d9650140553d');
-  background-size: cover; 
-  background-position: center; 
-  font-family: 'Helvetica', sans-serif;
-  overflow: hidden;
-  margin: 0;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pair with Me</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #FF5733, #33FF57, #5733FF, #FF33A1, #FFFD33, #33C0FF, #FF8C00);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      background-size: 500% 500%;
+      animation: gradientBackground 5s ease infinite; /* Faster transition speed */
+      perspective: 1500px;
+    }
 
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 800px; /* Adjusted max-width */
-  max-height: 1000px; /* Adjusted max-height */
-  border-radius: 0;
-  background-color: rgba(255, 255, 255, 0.8);
-  /* Add a semi-transparent white background to make text more readable */
-  box-shadow: 0 0 17px rgba(0, 0, 0, 0.1);
-  padding: 25px;
-}
+    /* Multi-color animated background */
+    @keyframes gradientBackground {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 100% 50%; }
+      50% { background-position: 200% 50%; }
+      75% { background-position: 300% 50%; }
+      100% { background-position: 400% 50%; }
+    }
 
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
+    .box {
+      width: 300px;
+      height: 400px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform: rotateY(0deg) translateZ(0px);
+      transition: transform 0.3s ease, box-shadow 0.2s ease;
+    }
 
-.header {
-  text-align: center;
-  padding-top: 20px;
-}
+    .box:hover {
+      transform: scale(1.1) rotateY(15deg) translateZ(30px); /* Faster animation */
+      box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.25);
+    }
 
-.header h1 {
-  color: #128c7e;
-  font-size: 30px;
-  margin-bottom: 30px;
-}
+    #text {
+      color: #333;
+      transition: color 0.3s ease;
+    }
 
-.main {
-  text-align: center;
-}
+    .input-container input {
+      border-radius: 0.9rem;
+      background: #e0f7fa;
+      box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15);
+      width: 80%;
+      padding: 10px;
+      border: none;
+      margin-bottom: 15px;
+      color: #0072ff;
+      font-size: 16px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.main input {
-  width: calc(100% - 30px); /* Adjusted width */
-  height: 60px;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-  padding: 15px; /* Add padding for a boxy look */
-  font-size: 16px;
-  margin-bottom: 20px;
-  border-radius: 0; /* Square off the corners */
-  background-color: #f2f2f2;
-  border: 1px solid #ddd;
-}
+    .input-container input:focus {
+      outline: none;
+      box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.3);
+      background: #ffffff;
+    }
 
-.main button {
-  padding: 0;
-  background-color: #128c7e;
-  letter-spacing: 0px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  border-radius: 0; /* Square off the corners */
-  width: 100%;
-  height: 50px;
-  font-size: 18px;
-  color: #fff;
-  border: none;
-}
+    .input-container button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #0072ff, #8a2be2, #32cd32, #87cefa);
+      background-size: 300% 300%;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease, transform 0.2s ease;
+      animation: buttonBackground 3s ease infinite; /* Faster button animation */
+    }
 
-#copyb {
-  padding: 0;
-  background-color: #25d366;
-  letter-spacing: 0px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  border-radius: 0; /* Square off the corners */
-  width: 100%;
-  height: 30px;
-  font-size: 15px;
-  color: #fff;
-  border: none;
-}
+    /* Button color gradient animation */
+    @keyframes buttonBackground {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 50%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 150% 50%; }
+      100% { background-position: 200% 50%; }
+    }
 
-#copyb:hover,
-.main button:hover,
-.main input:hover {
-  cursor: pointer;
-  filter: brightness(1.1);
-}
+    .input-container button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    }
 
+    .centered-text {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 18px;
+      text-align: center;
+    }
 
+    .centered-text a {
+      text-decoration: none;
+      color: #0072ff;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
 
-.main input::placeholder {
-  color: #888;
-}
+    .centered-text a:hover {
+      color: #32cd32;
+    }
 
-.main span {
-  position: relative;
-  display: block;
-}
+    #waiting-message {
+      font-size: 16px;
+      color: #ff8c00;
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
 
-.main i {
-  position: absolute;
-  left: 15px;
-  color: #128c7e;
-  font-size: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-}
+    /* Subtle text pulsing animation */
+    @keyframes pulse {
+      0% { color: #ff8c00; }
+      50% { color: #ff4500; }
+      100% { color: #ff8c00; }
+    }
 
+    @media (max-width: 440px) {
+      .box {
+        width: 100%;
+        height: auto;
+      }
+      
+      .input-container input {
+        width: 100%;
+      }
 
-</style>
+      .input-container button {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
- <div class="container">
-  <div class="header">
-   <h1>GURU BOT PAIRING</h1>
+  <div class="container">
+    <div class="main">
+      <div class="box" id="box">
+        <div id="text">
+          <i class="fa fa-user"></i>
+          <p>
+            <h3 class="centered-text">Link with Phone Number</h3>
+            <h6>Enter your number with country code.</h6>
+            <div class="input-container">
+              <input type="text" id="number" placeholder="923092668108" />
+              <button id="submit">Enter</button>
+            </div>
+            <a id="waiting-message" class="centered-text" style="display: none;">In process...</a>
+            <br><br>
+            <main id="pair"></main>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="main">
-   <form>
-    <span>
-     <i class="fa fa-user"></i>
-     <input type="number" id="number" placeholder="enter your phone number with country code" name="">
-    </span><br>
-     <button id="submit">submit</button>
-<main id="pair"></main>
-   </form>
-  </div>
- </div>
- <link rel="import" href="./loader.html">
- <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
-    ></script>
-    <script>
-      let a = document.getElementById("pair");
-      let b = document.getElementById("submit");
-      let c = document.getElementById("number");
-  
-      let isSubmitting = false;
-      let isCodeDisplayed = false;
-  
-      async function Copy() {
-        let text = document.getElementById("copy").innerText;
-        let obj = document.getElementById("copy");
-        await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-        obj.innerText = "COPIED";
-        obj.style = "color:blue;font-weight:bold";
-        obj.size = "5";
-        setTimeout(() => {
-          obj.innerText = text;
-          obj.style = "color:black;font-weight-bold";
-          obj.size = "5";
-        }, 500);
-      }
-  
-      b.addEventListener("click", async (e) => {
-        e.preventDefault();
-  
-        if (isCodeDisplayed) {
-          alert("Please wait for 2 minutes before requesting a new code.");
-          return;
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+    let countdown = 0;
+    let countdownInterval;
+
+    // Start the countdown
+    function startCountdown(seconds) {
+      countdown = seconds;
+      b.disabled = true;
+      updateButtonText(); // Update button text when countdown starts
+
+      countdownInterval = setInterval(() => {
+        countdown--;
+        console.log(`Countdown: ${countdown}s`); // Log countdown value for debugging
+        updateButtonText();
+
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          b.disabled = false;
+          b.textContent = "Enter";
         }
-  
-        if (isSubmitting) {
-          alert("Please wait for the code before trying to request again.");
-          return;
-        }
-  
-        if (!c.value) {
-          a.innerHTML = '<a style="color:black;font-weight:bold">Enter your WhatsApp number with a country code</a><br><br>';
-        } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-          a.innerHTML = '<a style="color:black;font-weight:bold">Invalid number format</a><br><br>';
-        } else {
-          isSubmitting = true;
-  
-          const bc = c.value.replace(/[^0-9]/g, "");
-          let bb = "";
-          let bbc = "";
-          const cc = bc.split('');
-          cc.map(a => {
-            bbc += a;
-            if (bbc.length == 3) {
-              bb += " " + a;
-            } else if (bbc.length == 8) {
-              bb += " " + a;
-            } else {
-              bb += a;
-            }
-          });
-  
-          c.type = "text";
-          c.value = "+" + bb;
-          c.style = "color:black;font-size:20px";
-          a.innerHTML = '<a style="color:black;font-weight:bold">Please wait for some time</a><br><br>';
-  
-          try {
-            let {
-              data
-            } = await axios(`/pair?phone=${bc}`);
-            let code = data.code || "Service Unavailable";
-            a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
-            isCodeDisplayed = true;
-  
-            setTimeout(() => {
-              isCodeDisplayed = false;
-            }, 120000); 
-          } catch (error) {
-            
-          } finally {
-            isSubmitting = false;
+      }, 1000);
+    }
+
+    // Update button text to show countdown
+    function updateButtonText() {
+      b.textContent = countdown > 0 ? `Please Wait ${countdown}s` : "Enter";
+    }
+
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<a style="color:black; font-weight:bold">Enter your WhatsApp number with country code.</a><br><br>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<a style="color:black; font-weight:bold">Invalid number format</a><br><br>';
+      } else {
+        startCountdown(120); // Start countdown for 120 seconds
+        const bc = c.value.replace(/[^0-9]/g, "");
+        let bb = "";
+        let bbc = "";
+        const cc = bc.split('');
+        cc.map(a => {
+          bbc += a;
+          if (bbc.length == 3) {
+            bb += " " + a;
+          } else if (bbc.length == 8) {
+            bb += " " + a;
+          } else {
+            bb += a;
           }
+        });
+        c.type = "text";
+        c.value = "+" + bb;
+        a.innerHTML = '<a style="color:black; font-weight:bold">Please wait for some time</a><br><br>';
+        let { data } = await axios(`/code?number=${bc}`);
+        let code = data.code ||"Service Unavailable";
+        if (code) {
+          a.innerHTML = `<font id="copy">CODE: ${code}</font><br><br>`;
+        } else {
+          a.innerHTML = '<a style="color:black; font-weight:bold">Error sending the code. Please try again.</a><br><br>';
         }
-      });
-    </script>
+      }
+    });
+  </script>
 </body>
-  </html>
+</html> 

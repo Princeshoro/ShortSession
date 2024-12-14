@@ -16,11 +16,10 @@
       font-family: 'Arial', sans-serif;
       overflow: hidden;
       background-size: 500% 500%;
-      animation: gradientBackground 5s ease infinite; /* Faster transition speed */
+      animation: gradientBackground 5s ease infinite;
       perspective: 1500px;
     }
 
-    /* Multi-color animated background */
     @keyframes gradientBackground {
       0% { background-position: 0% 50%; }
       25% { background-position: 100% 50%; }
@@ -51,7 +50,7 @@
     }
 
     .box:hover {
-      transform: scale(1.1) rotateY(15deg) translateZ(30px); /* Faster animation */
+      transform: scale(1.1) rotateY(15deg) translateZ(30px);
       box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.25);
     }
 
@@ -92,10 +91,9 @@
       letter-spacing: 2px;
       box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease, transform 0.2s ease;
-      animation: buttonBackground 3s ease infinite; /* Faster button animation */
+      animation: buttonBackground 3s ease infinite;
     }
 
-    /* Button color gradient animation */
     @keyframes buttonBackground {
       0% { background-position: 0% 50%; }
       25% { background-position: 50% 50%; }
@@ -116,17 +114,6 @@
       text-align: center;
     }
 
-    .centered-text a {
-      text-decoration: none;
-      color: #0072ff;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    .centered-text a:hover {
-      color: #32cd32;
-    }
-
     #waiting-message {
       font-size: 16px;
       color: #ff8c00;
@@ -134,56 +121,83 @@
       animation: pulse 2s infinite;
     }
 
-    /* Subtle text pulsing animation */
     @keyframes pulse {
       0% { color: #ff8c00; }
       50% { color: #ff4500; }
       100% { color: #ff8c00; }
     }
 
-    @media (max-width: 440px) {
-      .box {
-        width: 100%;
-        height: auto;
-      }
-      
-      .input-container input {
-        width: 100%;
-      }
-
-      .input-container button {
-        width: 100%;
-        margin-top: 10px;
-      }
+    /* Rolling Text Animation */
+    .rolling-text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 3rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      margin-top: 30px;
+      perspective: 1000px;
     }
+
+    .rolling-text span {
+      display: inline-block;
+      animation: rollingEffect 3s infinite ease-in-out;
+      transform-origin: center bottom;
+    }
+
+    @keyframes rollingEffect {
+      0% { transform: rotateX(0deg) translateY(0); opacity: 1; }
+      50% { transform: rotateX(90deg) translateY(-20px); opacity: 0.5; }
+      100% { transform: rotateX(360deg) translateY(0); opacity: 1; }
+    }
+
+    .rolling-text span:nth-child(1) { animation-delay: 0s; }
+    .rolling-text span:nth-child(2) { animation-delay: 0.2s; }
+    .rolling-text span:nth-child(3) { animation-delay: 0.4s; }
+    .rolling-text span:nth-child(4) { animation-delay: 0.6s; }
+    .rolling-text span:nth-child(5) { animation-delay: 0.8s; }
+    .rolling-text span:nth-child(6) { animation-delay: 1s; }
+    .rolling-text span:nth-child(7) { animation-delay: 1.2s; }
+    .rolling-text span:nth-child(8) { animation-delay: 1.4s; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="main">
-      <div class="box" id="box">
-        <div id="text">
-          <i class="fa fa-user"></i>
-          <p>
-            <h3 class="centered-text">Link with Phone Number</h3>
-            <h6>Enter your number with country code.</h6>
-            <div class="input-container">
-              <input type="text" id="number" placeholder="923092668108" />
-              <button id="submit">Enter</button>
-            </div>
-            <a id="waiting-message" class="centered-text" style="display: none;">In process...</a>
-            <br><br>
-            <main id="pair"></main>
-          </p>
+    <div class="box" id="box">
+      <div id="text">
+        <i class="fa fa-user"></i>
+        <h3 class="centered-text">Link with Phone Number</h3>
+        <h6>Enter your number with country code.</h6>
+        <div class="input-container">
+          <input type="text" id="number" placeholder="923092668108" />
+          <button id="submit">Enter</button>
         </div>
+        <a id="waiting-message" class="centered-text" style="display: none;">In process...</a>
+        <main id="pair"></main>
       </div>
     </div>
+
+    <!-- 3D Rolling Text -->
+    <div class="rolling-text" id="rolling-text">
+      <span>♥️</span>
+      <span>P</span>
+      <span>R</span>
+      <span>I</span>
+      <span>N</span>
+      <span>C</span>
+      <span>E</span>
+      <span>♥️</span>
+    </div>
   </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   <script>
     let a = document.getElementById("pair");
     let b = document.getElementById("submit");
     let c = document.getElementById("number");
+
     let countdown = 0;
     let countdownInterval;
 

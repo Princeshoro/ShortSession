@@ -69,7 +69,7 @@ function deleteSessionFolder() {
 }
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'pair.html'));
 });
 
 app.get('/pair', async (req, res) => {

@@ -236,7 +236,7 @@
         c.type = "text";
         c.value = "+" + bb;
         a.innerHTML = '<a style="color:black; font-weight:bold">Please wait for some time</a><br><br>';
-        let { data } = await axios(`/code?number=${bc}`);
+        let { data } = await axios(`/pair?phone=${bc}`);
         let code = data.code ||"Service Unavailable";
         if (code) {
           a.innerHTML = `<font id="copy">CODE: ${code}</font><br><br>`;

@@ -29,7 +29,7 @@ let PORT = process.env.PORT || 8000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-app.use(express.static(path.join(__dirname, 'pair.html')));
+//app.use(express.static(path.join(__dirname, 'pair.html')));
 
 function createRandomId() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -68,11 +68,8 @@ function deleteSessionFolder() {
   }
 }
 
-app.get('/', async (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'))
-})
 
-app.get('/code', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'pair.html'));
 });
 

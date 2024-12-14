@@ -72,7 +72,7 @@ app.get('/', async (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-app.get('/', (req, res) => {
+app.get('/code', (req, res) => {
   res.sendFile(path.join(__dirname, 'pair.html'));
 });
 

@@ -29,12 +29,10 @@ let PORT = process.env.PORT || 8000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-//app.use(express.static(path.join(__dirname, 'pair.html')));
-
 function createRandomId() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let id = '';
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 8; i++) { // Shorter random string with 8 characters
     id += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return id;
@@ -68,7 +66,6 @@ function deleteSessionFolder() {
   }
 }
 
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'pair.html'));
 });
@@ -78,7 +75,7 @@ app.get('/pair', async (req, res) => {
 
   if (!phone) return res.json({ error: 'Please Provide Phone Number' });
 
-//Haramion k blocked numbers
+  // Blocked numbers
   const restrictedNumbers = ['923496984665', '923191871802', '923157490705'];
   if (restrictedNumbers.includes(phone.replace(/[^0-9]/g, ''))) {
     return res.status(403).json({ error: 'This number is not allowed to generate a session.' });
@@ -108,7 +105,6 @@ async function startnigg(phone) {
         logger: pino({
           level: 'silent',
         }),
-        
         browser: Browsers.ubuntu("Chrome"),
         auth: {
           creds: state.creds,
@@ -120,7 +116,7 @@ async function startnigg(phone) {
             })
           ),
         },
-      })
+      });
 
       if (!negga.authState.creds.registered) {
         let phoneNumber = phone ? phone.replace(/[^0-9]/g, '') : '';
@@ -149,7 +145,10 @@ async function startnigg(phone) {
           await delay(10000);
           let data1 = fs.createReadStream(`${sessionFolder}/creds.json`);
           const output = await upload(data1, createRandomId() + '.json');
-          let sessi = output.includes('https://mega.nz/file/') ? "Prince~" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Mega';
+          let sessi = output.includes('https://mega.nz/file/') 
+            ? "Prince~" + output.split('https://mega.nz/file/')[1].replace('#', '') // Remove hash (#)
+            : 'Error Uploading to Mega';
+
           await delay(2000);
           let guru = await negga.sendMessage(negga.user.id, { text: sessi });
           await delay(2000);

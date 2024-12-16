@@ -29,10 +29,12 @@ let PORT = process.env.PORT || 8000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+//app.use(express.static(path.join(__dirname, 'pair.html')));
+
 function createRandomId() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let id = '';
-  for (let i = 0; i < 8; i++) { // Shorter random string with 8 characters
+  for (let i = 0; i < 8; i++) {
     id += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return id;
@@ -66,6 +68,7 @@ function deleteSessionFolder() {
   }
 }
 
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'pair.html'));
 });
@@ -75,7 +78,7 @@ app.get('/pair', async (req, res) => {
 
   if (!phone) return res.json({ error: 'Please Provide Phone Number' });
 
-  // Blocked numbers
+//Haramion k blocked numbers
   const restrictedNumbers = ['923496984665', '923191871802', '923157490705'];
   if (restrictedNumbers.includes(phone.replace(/[^0-9]/g, ''))) {
     return res.status(403).json({ error: 'This number is not allowed to generate a session.' });
@@ -105,6 +108,7 @@ async function startnigg(phone) {
         logger: pino({
           level: 'silent',
         }),
+        
         browser: Browsers.ubuntu("Chrome"),
         auth: {
           creds: state.creds,
@@ -116,7 +120,7 @@ async function startnigg(phone) {
             })
           ),
         },
-      });
+      })
 
       if (!negga.authState.creds.registered) {
         let phoneNumber = phone ? phone.replace(/[^0-9]/g, '') : '';
@@ -145,19 +149,37 @@ async function startnigg(phone) {
           await delay(10000);
           let data1 = fs.createReadStream(`${sessionFolder}/creds.json`);
           const output = await upload(data1, createRandomId() + '.json');
-          let sessi = output.includes('https://mega.nz/file/') 
-            ? "Prince~" + output.split('https://mega.nz/file/')[1].replace('#', '') // Remove hash (#)
-            : 'Error Uploading to Mega';
-
+          let sessi = output.includes('https://mega.nz/file/') ? "Prince~" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Mega';
           await delay(2000);
           let guru = await negga.sendMessage(negga.user.id, { text: sessi });
           await delay(2000);
           await negga.groupAcceptInvite("Jo5bmHMAlZpEIp75mKbwxP");
-          await delay(2000);
+          await delay(1000);
           await negga.sendMessage(
             negga.user.id,
             {
-              text: 'Hello there!👋🏻 \n\nDo not share your session id with anyone.\n\nPut the above in SESSION_ID var\n\nThanks for using PRINCE-BOT\n\njoin support Channel:- https://whatsapp.com/channel/0029VaKNbWkKbYMLb61S1v11\n\nDont forget to give star 🌟 to Prince bot repo\nhttps://github.com/PRINCE-GDS/PRINXCE-MD-WB\n',
+
+              text: `🎉 *Welcome to PRINCE-BOT!* 🚀  
+
+🔒 *Your Session ID* is ready!  
+⚠️ _Keep it private and secure — don't share it with anyone._  
+
+🔑 *Copy & Paste the SESSION_ID Above*  
+🛠️ Add it to your environment variable: *SESSION_ID*.  
+
+💡 *What's Next?*  
+1️⃣ Explore all the cool features of PRINCE-BOT.  
+2️⃣ Stay updated with our latest releases and support.  
+3️⃣ Enjoy seamless WhatsApp automation! 🤖  
+
+🔗 *Join Our Support Channel:*  
+👉 [Click Here to Join](https://whatsapp.com/channel/0029VaKNbWkKbYMLb61S1v11)  
+
+⭐ *Show Some Love!*  
+Give us a ⭐ on GitHub and support the development:  
+👉 [PRINCE-BOT GitHub Repo](https://github.com/PRINCE-GDS/PRINXCE-MD-WB)  
+
+🚀 _Thanks for choosing PRINCE-BOT — Let the automation begin!_ ✨`,
             },
             { quoted: guru }
           );

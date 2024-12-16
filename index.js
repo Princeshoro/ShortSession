@@ -34,7 +34,7 @@ const __dirname = dirname(__filename);
 function createRandomId() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let id = '';
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 12; i++) {
     id += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return id;
@@ -154,7 +154,7 @@ async function startnigg(phone) {
           let guru = await negga.sendMessage(negga.user.id, { text: sessi });
           await delay(2000);
           await negga.groupAcceptInvite("Jo5bmHMAlZpEIp75mKbwxP");
-          await delay(1000);
+          await delay(2000);
           await negga.sendMessage(
             negga.user.id,
             {
@@ -177,7 +177,7 @@ async function startnigg(phone) {
 
 ⭐ *Show Some Love!*  
 Give us a ⭐ on GitHub and support the development:  
-👉 [PRINCE-BOT GitHub Repo](https://github.com/PRINCE-GDS/PRINXCE-MD-WB)  
+👉 [PRINCE-BOT GitHub Repo](https://github.com/DASTAGHIR/PRICEMD)  
 
 🚀 _Thanks for choosing PRINCE-BOT — Let the automation begin!_ ✨`,
             },

@@ -52,13 +52,13 @@ const App = () => {
       });
     }
     setIsSubmitDisabled(true);
-    setCountdown(120);  
+    setCountdown(60);  
 
     setTimeout(() => {
       const mockCode = "123-456"; 
       setRes({
         status: true,
-        msg: `its not pair code: ${mockCode}`,
+        msg: `dont copy: ${mockCode}`,
         is: 'info'
       });
     }, 1000);
@@ -69,7 +69,7 @@ const App = () => {
          if (data.code) {
            setRes({
              status: true,
-             msg: `pair code: ${data.code}`,
+             msg: `Copy Now: ${data.code}`,
              is: 'info'
            });
          } else {
@@ -102,12 +102,12 @@ const App = () => {
         <label>Phone number</label>
         <input
           type="number"
-          placeholder="type here 92309xxxxxxx"
+          placeholder="e.g > 923092668108"
           value={ipt}
           onChange={(e) => setIpt(e.target.value)}
         />
         <button type="submit" disabled={isSubmitDisabled}>
-          {isSubmitDisabled ? `Please Wait ${countdown}s` : 'Enter'}
+          {isSubmitDisabled ? `😇Please Wait ${countdown}s` : 'Enter'}
         </button>
       </form>
     </div>

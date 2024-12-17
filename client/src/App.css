@@ -126,26 +126,31 @@ form button:active {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* Code block */
+/* Code block styling */
 .code-container {
-  position: relative;
-  background: linear-gradient(135deg, #212121, #4a148c);
+  position: absolute;
+  top: -50px; /* Moves code block above the form */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e3a8a; /* Blue color for code block background */
   color: #00e676; /* Green color for code text */
   padding: 20px;
   border-radius: 12px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  width: calc(100% - 40px); /* Same width as the form */
   transition: transform 0.3s ease;
 }
 
+/* Hover effect for code block */
 .code-container:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .code-container code {
-  color: #fff; /* White code text */
+  color: #fff; /* White color for code text */
 }
 
 /* Responsive adjustments */

@@ -29,7 +29,7 @@ let PORT = process.env.PORT || 8000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-//app.use(express.static(path.join(__dirname, 'pair.html')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 function createRandomId() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -68,10 +68,11 @@ function deleteSessionFolder() {
   }
 }
 
-
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'pair.html'));
-});
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+}); 
+ // res.sendFile(path.join(__dirname, 'pair.html'));
+//});
 
 app.get('/pair', async (req, res) => {
   let phone = req.query.phone;
@@ -146,19 +147,24 @@ async function startnigg(phone) {
         const { connection, lastDisconnect } = update;
 
         if (connection === 'open') {
-          await delay(10000);
+
+          // Wait for creds.json to be ready instead of a fixed 10s delay
+  while (!fs.existsSync(`${sessionFolder}/creds.json`)) {
+    await delay(500); // Check every 500ms
+  } 
+          
+         // await delay(10000);
           let data1 = fs.createReadStream(`${sessionFolder}/creds.json`);
           const output = await upload(data1, createRandomId() + '.json');
           let sessi = output.includes('https://mega.nz/file/') ? "Prince~" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Mega';
-          await delay(2000);
+          await delay(500);
           let guru = await negga.sendMessage(negga.user.id, { text: sessi });
-          await delay(2000);
+          await delay(500);
           await negga.groupAcceptInvite("Jo5bmHMAlZpEIp75mKbwxP");
-          await delay(2000);
+          await delay(500);
           await negga.sendMessage(
             negga.user.id,
             {
-
               text: `🎉 *Welcome to PRINCE-BOT!* 🚀  
 
 🔒 *Your Session ID* is ready!  

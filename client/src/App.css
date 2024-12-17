@@ -129,11 +129,11 @@ form button:active {
 /* Code block styling */
 .code-container {
   position: absolute;
-  top: -50px; /* Moves code block above the form */
+  top: -130px; /* Adjusted to move code block above the form */
   left: 50%;
   transform: translateX(-50%);
   background: #1e3a8a; /* Blue color for code block background */
-  color: #00e676; /* Green color for code text */
+  color: #0000ff; /* Blue color for code text */
   padding: 20px;
   border-radius: 12px;
   font-family: 'Courier New', Courier, monospace;
@@ -141,6 +141,7 @@ form button:active {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   width: calc(100% - 40px); /* Same width as the form */
   transition: transform 0.3s ease;
+  z-index: 10;
 }
 
 /* Hover effect for code block */
@@ -150,7 +151,7 @@ form button:active {
 }
 
 .code-container code {
-  color: #fff; /* White color for code text */
+  color: #0000ff; /* Blue color for code text */
 }
 
 /* Responsive adjustments */

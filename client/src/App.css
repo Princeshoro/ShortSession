@@ -33,7 +33,7 @@ form:hover {
 /* Title */
 form h1 {
   text-align: center;
-  color: #fff;
+  color: green; /* Green color for text */
   margin: 0 0 20px;
   font-size: 30px;
   font-weight: bold;
@@ -42,7 +42,7 @@ form h1 {
 
 /* Label */
 form label {
-  color: #d1c4e9;
+  color: #8bc34a; /* Light Green for label */
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 5px;
@@ -58,7 +58,7 @@ form input {
   border-radius: 8px;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: #8bc34a; /* Green color for input text */
   font-size: 16px;
   transition: background 0.3s ease;
 }
@@ -80,7 +80,7 @@ form button {
   background: linear-gradient(45deg, #ff4081, #00bcd4, #2196f3);
   border: none;
   border-radius: 10px;
-  color: #fff;
+  color: green; /* Green color for button text */
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
@@ -123,7 +123,7 @@ form button:active {
   left: 50%;
   transform: translateX(-50%);
   background: #1e3a8a; /* Blue color for code block background */
-  color: #0000ff; /* Blue color for code text */
+  color: green; /* Green color for code text */
   padding: 20px;
   border-radius: 12px;
   font-family: 'Courier New', Courier, monospace;
@@ -141,7 +141,7 @@ form button:active {
 }
 
 .code-container code {
-  color: #0000ff; /* Blue color for code text */
+  color: green; /* Green color for code text */
 }
 
 /* Responsive adjustments */

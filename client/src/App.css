@@ -130,7 +130,7 @@ form button:active {
 .code-container {
   position: relative;
   background: linear-gradient(135deg, #212121, #4a148c);
-  color: #e3f2fd;
+  color: #00e676; /* Green color for code text */
   padding: 20px;
   border-radius: 12px;
   font-family: 'Courier New', Courier, monospace;
@@ -142,6 +142,10 @@ form button:active {
 .code-container:hover {
   transform: scale(1.02);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.code-container code {
+  color: #fff; /* White code text */
 }
 
 /* Responsive adjustments */

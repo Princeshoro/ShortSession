@@ -1,0 +1,28 @@
+{
+  "name": "ShortSession",
+  "description": "A WhatsApp session generator using Baileys and Mega API.",
+  "repository": "https://github.com/Princeshoro/ShortSession",
+  "keywords": ["whatsapp", "session", "baileys", "authentication", "mega"],
+  "env": {
+    "PORT": {
+      "description": "Port number for the Express server to run on",
+      "value": "8000"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "scripts": {
+    "start": "node index.js"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [],
+  "stack": "heroku-20"
+}

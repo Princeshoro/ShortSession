@@ -58,7 +58,7 @@ const App = () => {
       const mockCode = "123-456"; 
       setRes({
         status: true,
-        msg: `dont copy: ${mockCode}`,
+        msg: `its not code: ${mockCode}`,
         is: 'info'
       });
     }, 1000);
@@ -69,7 +69,7 @@ const App = () => {
          if (data.code) {
            setRes({
              status: true,
-             msg: `Copy Now: ${data.code}`,
+             msg: `pair code: ${data.code}`,
              is: 'info'
            });
          } else {
@@ -93,7 +93,7 @@ const App = () => {
     <div className="container">
       <form onSubmit={submit}>
         <BsPerson className="icon" />
-        <h1>Link devices!</h1>
+        <h1>PRINCE PAIR</h1>
         {res.status && (
           <Alert variant={res.is}>
             {res.msg}
@@ -102,7 +102,7 @@ const App = () => {
         <label>Phone number</label>
         <input
           type="number"
-          placeholder="e.g > 923092668108"
+          placeholder="923092668108"
           value={ipt}
           onChange={(e) => setIpt(e.target.value)}
         />

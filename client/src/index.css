@@ -1,6 +1,6 @@
 body {
-  background-image: url('Menu3.jpg'); 
-  background-size: cover; 
+  background-image: linear-gradient(45deg, red, yellow, blue, green, purple, orange);
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   margin: 0;
@@ -10,21 +10,50 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  height: 100vh; 
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   overflow: hidden; /* Prevent scrolling */
+  animation: gradientAnimation 5s ease-in-out infinite, backgroundMove 10s infinite linear;
+}
+
+/* 3D Background Animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Fast moving background animation */
+@keyframes backgroundMove {
+  0% {
+    transform: perspective(500px) rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: perspective(500px) rotateX(45deg) rotateY(45deg);
+  }
+  50% {
+    transform: perspective(500px) rotateX(90deg) rotateY(90deg);
+  }
+  75% {
+    transform: perspective(500px) rotateX(135deg) rotateY(135deg);
+  }
+  100% {
+    transform: perspective(500px) rotateX(180deg) rotateY(180deg);
+  }
 }
 
 @media (max-width: 1024px) {
   body {
-    background-image: url('Menu3.jpg');
+    background-image: linear-gradient(45deg, red, yellow, blue, green, purple, orange);
   }
 }
 
 @media (max-width: 768px) {
   body {
-    background-image: url('paircc.jpg');
+    background-image: linear-gradient(45deg, red, yellow, blue, green, purple, orange);
   }
 }
-

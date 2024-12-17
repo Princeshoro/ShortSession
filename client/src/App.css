@@ -99,31 +99,21 @@ form button:active {
 
 /* Copy button */
 .copy {
-  position: relative;
-  margin-top: 20px;
-  color: #fff;
-  width: 40px;
-  height: 40px;
+  position: absolute;
+  color: #000;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 0.2px solid #fff;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(45deg, #ff4081, #00bcd4);
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  align-self: flex-start;
-}
-
-.copy:hover {
-  transform: scale(1.1) rotate(10deg);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-}
-
-.copy:active {
-  transform: scale(0.95);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 
 /* Code block styling */
